@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="hiro_image" src="../assets/hiro.png">
+        <img id="uv_image" src="../assets/uvchecker.png">
+      </a-assets>
+      <a-plane id="plane1" position="-2 0 -2" src="#hiro_image" loop_anim></a-plane>
+      <a-camera position="0 0 0"></a-camera>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+    <script>
+      AFRAME.registerComponent('loop_anim', {
+        init: function () {
+          let count = 0;
+          const initPos = () =>{
+            this.el.removeAttribute('animation__001');
+            count++;
+            
+            this.el.setAttribute('src', (count%2)==0 ? '#hiro_image' : '#uv_image');
+            this.el.setAttribute('position',{x:-2,y:0,z:-2});
+          }
+          
+          const setup = () => {
+            this.el.setAttribute('animation__001', {'property': 'position',
+                                 'to': {x: 2, y: 0, z: -2},                                 
+                                 'loop': 'false',
+                                  'dur':3000});
+          }
+          
+          this.el.addEventListener('animationcomplete', function(e) {
+              console.log(e.detail.name, 'complete');
+              initPos();
+              setup();
+            });
+          
+          setup();
+          
+        },
+      });
+    </script>
+  </body>
+</html>
