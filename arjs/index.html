@@ -13,11 +13,12 @@
     </a-marker>
     <a-nft
       type="nft"
-      url="../assets/tokyo"
+      url="../assets/town"
       smooth="true"
       smoothCount="10"
       smoothTolerance=".01"
       smoothThreshold="5"
+      emitevents="true"
     >
         <a-box scale="50 50 50" color="blue"></a-box>
     </a-nft>
@@ -26,6 +27,14 @@
   <script>
     window.addEventListener("arjs-nft-loaded", (event) => {
         console.log("arjs-nft-loaded");
+    });
+    window.addEventListener("markerFound", (e) => {
+        console.log("markerFound");
+        console.log(e);
+    });
+    window.addEventListener("markerLost", (e) => {
+        console.log("markerLost");
+        console.log(e);
     });
   </script>
 </body>
